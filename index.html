@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evasão Escolar no Ensino Médio — Projeto G1</title>
+  <meta name="description" content="Análise e visualização de dados sobre evasão escolar no ensino médio brasileiro (2015–2024) com Python, Pandas, Seaborn e Streamlit.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <span class="tag">Projeto G1 · Tema 10</span>
+    <h1>Evasão Escolar no Ensino Médio Brasileiro (2015–2024)</h1>
+    <p>Análise e visualização de dados com Python, Pandas, Matplotlib, Seaborn, Plotly, SQLAlchemy e Streamlit</p>
+    <div class="cta">
+      <a class="button" href="https://projeto-evasao-escolar.streamlit.app/" target="_blank" rel="noopener">Abrir dashboard</a>
+      <a class="button secondary" href="https://github.com/enzortorres/projeto-evasao-escolar" target="_blank" rel="noopener">Código no GitHub</a>
+    </div>
+  </header>
+
+  <div class="autoria">
+    <dl>
+      <div><dt>Disciplina</dt><dd>Linguagem de Programação — Análise e Visualização de Dados com Python</dd></div>
+      <div><dt>Professor</dt><dd>Alexandre Neves Louzada</dd></div>
+      <div><dt>Aluno</dt><dd>Enzo Ribas Torres</dd></div>
+    </dl>
+  </div>
+
+  <main>
+
+    <section>
+      <h2>Sobre o projeto</h2>
+      <p>
+        A evasão escolar é um dos principais desafios da educação brasileira, com impacto direto sobre empregabilidade,
+        desigualdade econômica, qualidade da educação e inclusão social. Este projeto investiga os padrões de evasão no
+        ensino médio entre <strong>2015 e 2024</strong> a partir de uma base simulada com <strong>1.480 registros
+        semestrais</strong> de 37 municípios em 20 estados, separados por rede de ensino e série.
+      </p>
+      <p>
+        O trabalho cobre o fluxo completo de um projeto analítico: tratamento dos dados, engenharia de atributos,
+        integração com a API do IBGE, persistência em banco relacional, análise exploratória, KPIs, visualizações,
+        dashboard interativo e publicação.
+      </p>
+    </section>
+
+    <section>
+      <h2>Perguntas orientadoras</h2>
+      <ul>
+        <li>Quais estados apresentam maior evasão escolar?</li>
+        <li>Existem regiões mais vulneráveis?</li>
+        <li>A evasão aumentou ou diminuiu ao longo do tempo?</li>
+        <li>Há diferenças entre escolas públicas e privadas?</li>
+        <li>Existe relação entre renda e evasão?</li>
+        <li>Quais séries apresentam maior abandono?</li>
+        <li>Quais fatores parecem mais associados ao problema?</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Indicadores-chave</h2>
+      <div class="grid">
+        <div class="kpi"><div class="label">Taxa média de evasão</div><div class="value">7,24%</div><div class="note">ponderada pelas matrículas</div></div>
+        <div class="kpi"><div class="label">Total de evasões</div><div class="value">2.738.301</div><div class="note">de 37,8 milhões de matrículas</div></div>
+        <div class="kpi"><div class="label">Estado com maior evasão</div><div class="value">DF</div><div class="note">7,93% · menor: RO, 6,10%</div></div>
+        <div class="kpi"><div class="label">Região mais vulnerável</div><div class="value">Centro-Oeste</div><div class="note">7,49% · menor: Norte, 6,70%</div></div>
+        <div class="kpi"><div class="label">Rede mais afetada</div><div class="value">Pública</div><div class="note">10,43% contra 4,12% (2,5x)</div></div>
+        <div class="kpi"><div class="label">Série mais crítica</div><div class="value">3º ano</div><div class="note">7,35% no geral · 1º ano na rede pública</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Principais resultados</h2>
+
+      <div class="achado">
+        <div>
+          <h3>A desigualdade entre redes é o maior achado</h3>
+          <p>
+            A rede pública perde <strong>10,43%</strong> dos alunos contra <strong>4,12%</strong> na privada, em todos os anos,
+            regiões e séries. Todos os registros em risco crítico estão na rede pública.
+          </p>
+          <div class="legenda"><span class="pub">Pública</span><span class="pri">Privada</span></div>
+        </div>
+        <img src="imagens/evolucao_temporal.png" alt="Gráfico de linhas da taxa de evasão de 2015 a 2024: rede pública em torno de 10 a 11%, privada em torno de 4%, geral em torno de 7%." loading="lazy">
+      </div>
+
+      <div class="achado">
+        <div>
+          <h3>Queda lenta ao longo da década</h3>
+          <p>
+            A taxa geral caiu de 7,48% (2015) para 7,20% (2024), uma tendência de <strong>−0,039 p.p. por ano</strong>.
+            O menor valor foi em 2019 e 2020, ano da pandemia, interrompeu a melhora.
+          </p>
+        </div>
+        <img src="imagens/heatmap_semestral.png" alt="Mapa de calor da taxa de evasão por região e semestre, de 2015 a 2024." loading="lazy">
+      </div>
+
+      <div class="achado">
+        <div>
+          <h3>Diferenças regionais moderadas</h3>
+          <p>
+            Entre estados, a amplitude é de 1,83 p.p. (DF 7,93% contra RO 6,10%). Estados da mesma região aparecem
+            espalhados pelo ranking: a desigualdade regional existe, mas pesa bem menos que o tipo de escola.
+          </p>
+        </div>
+        <img src="imagens/ranking_estados.png" alt="Barras horizontais com a taxa de evasão de cada estado, coloridas por região, com a média nacional de 7,24% marcada." loading="lazy">
+      </div>
+
+      <div class="achado">
+        <div>
+          <h3>Renda não explica a evasão nesta base</h3>
+          <p>
+            A correlação entre renda e evasão é desprezível (r = −0,008), e o desempenho acadêmico tem associação fraca e
+            inconsistente entre as redes. O fator dominante é a rede de ensino (r = 0,84).
+          </p>
+        </div>
+        <img src="imagens/dispersao_renda_desempenho.png" alt="Dois gráficos de dispersão, renda e desempenho contra taxa de evasão, com retas quase horizontais para cada rede." loading="lazy">
+      </div>
+    </section>
+
+    <section>
+      <h2>Dashboard interativo</h2>
+      <p>
+        O dashboard em Streamlit tem <strong>7 páginas</strong> e filtros globais por ano, semestre, região, estado, rede de
+        ensino, série e nível de risco. Todos os KPIs, gráficos e textos interpretativos se atualizam com o recorte escolhido.
+      </p>
+      <div class="grid">
+        <div class="card"><h3>Visão geral</h3><p>Descrição do problema, 8 KPIs dinâmicos e destaques do recorte.</p></div>
+        <div class="card"><h3>Evolução temporal</h3><p>Linha temporal, tendência linear, heatmap semestral e série interativa.</p></div>
+        <div class="card"><h3>Regiões e estados</h3><p>Mapa interativo com malha do IBGE, ranking estadual e comparação regional.</p></div>
+        <div class="card"><h3>Redes e séries</h3><p>Pública × privada, boxplot, barras por série e níveis de risco.</p></div>
+        <div class="card"><h3>Fatores associados</h3><p>Dispersão, correlação de Pearson/Spearman com p-valor e matriz de correlação.</p></div>
+        <div class="card"><h3>Explorar dados e SQL</h3><p>Tabela dinâmica, consultas SQL no SQLite e download da base filtrada.</p></div>
+        <div class="card"><h3>Conclusão executiva</h3><p>Respostas às perguntas orientadoras, recomendações e limitações.</p></div>
+      </div>
+      <p class="acao">
+        <a class="button" href="https://projeto-evasao-escolar.streamlit.app/" target="_blank" rel="noopener">Acessar dashboard Streamlit</a>
+      </p>
+    </section>
+
+    <section>
+      <h2>Funcionalidades implementadas</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Funcionalidade</th><th>Como foi feita</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Consumo de API</strong></td><td>Requests na API de dados do IBGE: estados (nome oficial, código) e malha geográfica das UFs, com cópia local de contingência.</td></tr>
+            <tr><td><strong>Persistência em banco</strong></td><td>SQLite gerado com SQLAlchemy a partir da base tratada.</td></tr>
+            <tr><td><strong>Modelagem relacional</strong></td><td>ORM com 4 tabelas: regiões → estados → municípios → indicadores de evasão.</td></tr>
+            <tr><td><strong>Dashboard multipágina</strong></td><td><code>st.navigation</code> com 7 páginas e filtros globais compartilhados.</td></tr>
+            <tr><td><strong>Mapas interativos</strong></td><td>Mapa coroplético com Plotly e GeoJSON do IBGE.</td></tr>
+            <tr><td><strong>Séries temporais e correlação</strong></td><td>Tendência por mínimos quadrados (NumPy), média móvel, variação anual, Pearson/Spearman com p-valor.</td></tr>
+            <tr><td><strong>Integração de múltiplas fontes</strong></td><td>CSV + API do IBGE + banco SQLite.</td></tr>
+            <tr><td><strong>Interatividade</strong></td><td>7 filtros, upload de CSV, tabela dinâmica configurável, editor SQL somente leitura e downloads.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Tratamento dos dados</h2>
+      <ul>
+        <li><strong>16 taxas de evasão corrigidas</strong>: não batiam com evasões ÷ matriculados e foram recalculadas.</li>
+        <li><strong>2 índices de desempenho ajustados</strong>: valores acima de 100 limitados ao intervalo válido.</li>
+        <li>Verificação de nulos, duplicados e registros impossíveis (nenhum encontrado).</li>
+        <li>Taxas agregadas sempre <strong>ponderadas pelas matrículas</strong>, e não pela média simples dos registros.</li>
+        <li>Novos atributos: período semestral, permanências, quartis de renda/desempenho/internet, nome e código IBGE.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Tecnologias utilizadas</h2>
+      <ul class="chips">
+        <li>Python</li><li>Pandas</li><li>NumPy</li><li>Matplotlib</li><li>Seaborn</li><li>Plotly</li>
+        <li>Streamlit</li><li>SQLAlchemy</li><li>SQLite</li><li>Requests</li><li>API IBGE</li><li>GitHub Pages</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Arquivos do projeto</h2>
+<pre>projeto-evasao-escolar/
+├── app.py                  # entrada do dashboard (dados, filtros, navegação)
+├── paginas/                # 7 páginas do dashboard
+├── src/                    # limpeza, API IBGE, banco, KPIs e gráficos
+├── requirements.txt
+├── README.md
+├── index.html              # esta página
+├── css/style.css           # estilos da página
+├── dados/                  # CSV original, CSV tratado e cache do IBGE
+├── database/               # evasao_escolar.sqlite
+├── notebooks/              # analise_evasao_escolar.ipynb
+└── imagens/                # gráficos exportados pelo notebook</pre>
+      <p>
+        <a class="button" href="https://github.com/enzortorres/projeto-evasao-escolar#readme" target="_blank" rel="noopener">Ver README</a>
+        <a class="button secondary" href="https://github.com/enzortorres/projeto-evasao-escolar/blob/main/notebooks/analise_evasao_escolar.ipynb" target="_blank" rel="noopener">Ver notebook</a>
+        <a class="button secondary" href="dados/simulacao_evasao_escolar_brasil.csv" download>Baixar base de dados</a>
+        <a class="button secondary" href="https://github.com/enzortorres/projeto-evasao-escolar/blob/main/app.py" target="_blank" rel="noopener">Ver app.py</a>
+      </p>
+    </section>
+
+    <section>
+      <h2>Conclusão</h2>
+      <p>
+        A evasão no ensino médio é um problema <strong>persistente e concentrado na rede pública</strong>: a taxa caiu menos
+        de 0,3 p.p. em dez anos, e a diferença entre redes (cerca de 6 p.p.) é muito maior que as diferenças entre estados,
+        regiões ou séries. Políticas de permanência devem priorizar a rede pública, especialmente o 1º ano, com
+        monitoramento semestral. Como renda e acesso à internet não explicam a variação, vale investigar outros fatores,
+        como trabalho juvenil, distância até a escola e infraestrutura.
+      </p>
+      <p><em>Base de dados simulada, usada para fins educacionais. Correlação não implica causalidade.</em></p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><strong>Projeto G1 — Evasão Escolar no Ensino Médio Brasileiro</strong></p>
+    <p>Linguagem de Programação — Análise e Visualização de Dados com Python</p>
+    <p>Professor: Alexandre Neves Louzada · Aluno: Enzo Ribas Torres</p>
+  </footer>
+
+</body>
+</html>
